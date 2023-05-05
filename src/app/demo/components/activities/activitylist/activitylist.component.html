@@ -1,0 +1,116 @@
+<div class="surface-ground min-h-screen w-screen">
+    <div class="landing-wrapper">
+        <div [ngStyle]="backgroundStyle" class="bg-no-repeat bg-cover bg-bottom">
+            <div class="flex align-items-center justify-content-between px-5 sm:px-8 py-6">
+                <a [routerLink]="['/']">
+                    <span class="text-2xl font-bold text-color">TogetherAndStronger</span>
+                </a>
+                <div class="relative">
+                    <button [hideOnOutsideClick]="true"
+                            class="cursor-pointer block lg:hidden select-none p-link w-3rem h-3rem inline-flex align-items-center justify-content-center border-circle"
+                            enterActiveClass="scalein" enterClass="hidden" leaveActiveClass="fadeout"
+                            leaveToClass="hidden" pRipple pStyleClass="@next">
+                        <i class="pi pi-bars text-4xl"></i>
+                    </button>
+                    <div
+                        class="hidden lg:block absolute right-0 top-auto lg:static z-1 shadow-2 lg:shadow-none w-15rem lg:w-auto surface-overlay lg:surface-ground origin-top p-3 lg:p-0"
+                        id="landing-menu" style="border-radius:14px">
+                        <ul class="flex flex-column lg:flex-row m-0 p-0 list-none text-2xl lg:text-base">
+                            <li>
+                                <a [routerLink]="['/']"
+                                   class="block p-3 cursor-pointer font-bold text-color-secondary hover:text-color transition-colors transition-duration-300"
+                                   leaveActiveClass="fadeout" leaveToClass="hidden"
+                                   pStyleClass="#landing-menu">Accueil</a>
+                            </li>
+                            <li>
+                                <a [routerLink]="['/auth/login']"
+                                   class="block p-3 cursor-pointer font-bold text-color-secondary hover:text-color transition-colors transition-duration-300">Se
+                                    Connecter</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-column lg:flex-row px-5 sm:px-8 py-8 overflow-hidden">
+                <div class="card">
+                    <div class="text-900 font-medium text-4xl mb-4">Toutes nos activitées</div>
+                    <div class="text-900 font-medium text-4xl mb-4">{{selectedCategory}}</div>
+                    <div class="text-900 font-medium text-4xl mb-4">{{selectedPrice}}</div>
+                    <div class="text-900 font-medium text-4xl mb-4">{{selectedParticipant}}</div>
+                    <div class="card">
+                        <p-menubar>
+                            <div class="flex flex-row-reverse flex-wrap">
+                                <div class="flex m-4">
+                                    <p-button (click)="deleteSelection()" icon="pi pi-times"
+                                              styleClass="p-button-danger"></p-button>
+                                </div>
+                                <div class="flex m-4">
+                                    <p-multiSelect [options]="participants" [(ngModel)]="selectedParticipant"
+                                                   defaultLabel="Max Participants" display="chip" optionLabel="name"
+                                                   optionValue="code">
+                                    </p-multiSelect>
+                                </div>
+                                <div class="flex m-4">
+                                    <p-multiSelect [options]="prices" [(ngModel)]="selectedPrice" defaultLabel="Prix"
+                                                   display="chip" optionLabel="name" optionValue="code">
+                                    </p-multiSelect>
+                                </div>
+                                <div class="flex  m-4">
+                                    <p-dropdown [options]="category" [(ngModel)]="selectedCategory"
+                                                placeholder="Categories"></p-dropdown>
+                                </div>
+                            </div>
+                        </p-menubar>
+                    </div>
+                    <div class="grid -mt-3 -ml-3 -mr-3">
+                        <div
+                            *ngFor="let Activity of Activities | sortActivity:selectedCategory | sortActivityPrice:selectedPrice | sortActivityParticipant:selectedParticipant"
+                            class="col-12 md:col-4 lg:col-3">
+                            <div class="p-2">
+                                <div [routerLink]="['/activitées', Activity.id]" class="shadow-2 p-4 surface-card border-round">
+                                    <div class="relative mb-3">
+                                        <span class="surface-card text-900 shadow-2 px-3 py-2 absolute"
+                                              style="border-radius: 1.5rem; left: 1rem; top: 1rem">{{Activity.category}}</span>
+                                        <img [src]="Activity.image" class="w-full"/>
+                                    </div>
+                                    <div class="flex justify-content-between align-items-center mb-3">
+                                        <span class="text-900 font-medium text-xl">{{Activity.nom}}</span>
+                                        <span>
+                                            <i class="pi pi-star-fill text-yellow-500 mr-1"></i>
+                                            <span class="font-medium">{{Activity.note}}</span>
+                                        </span>
+                                    </div>
+                                    <p class="mt-0 mb-3 text-700 line-height-3">
+                                        {{Activity.description}}
+                                    </p>
+                                    <p class="mt-0 mb-1 text-700 line-height-3">De {{Activity.nb_personne_min}}
+                                        à {{Activity.nb_personne_max}} participants</p>
+
+                                    <span class="text-primary text-xl font-medium">A partir de {{Activity.prix_min}}
+                                        €/Personne</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="text-700 font-medium text-4xl mb-4"><p style="font-size: 100%">Les derniers avis: 4.5 <i class="pi pi-star-fill text-yellow-500 mr-1" style="font-size: 100%"></i></p>
+                    </div>
+                    <div class="grid -mt-3 -ml-3 -mr-3">
+                        <div *ngFor="let commentaire of commentaires" class="col-12 md:col-6 lg:col-3 mb-5 lg:mb-0">
+                            <div class="mb-3 relative shadow-2 p-4 surface-card border-round text-900">
+                                <h5>Team Building avec {{commentaire.name}}: {{commentaire.note}} <i class="pi pi-star-fill text-yellow-500 mr-1" style="font-size: 100%"></i></h5>
+                                <p>Le {{commentaire.data}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<app-config [minimal]="true"></app-config>
+

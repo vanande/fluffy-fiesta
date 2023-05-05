@@ -1,0 +1,32 @@
+{
+    "data": [
+        {
+            "id": "1",
+            "category": "Sport",
+            "nom": "Paintball",
+            "description": "Jeu de stratégie en équipe",
+            "nb_personne_min": "5",
+            "nb_personne_max": "20",
+            "nb_personne_choose": "10",
+            "prix_min": 150,
+            "prix_max": "500",
+            "prix_activite": "0",
+            "note": "4.5",
+            "image": "assets/demo/images/activity/paintball.jpg"
+        },
+        {
+            "id": "2",
+            "category": "Jeux de rôle",
+            "nom": "Escape Game",
+            "description": "Jeu d'évasion grandeur nature",
+            "nb_personne_min": "4",
+            "nb_personne_max": "10",
+            "nb_personne_choose": "8",
+            "prix_min": 200,
+            "prix_max": "800",
+            "prix_activite": "0",
+            "note": "4.0",
+            "image": "assets/demo/images/activity/Escape_Game.jpg"
+        }
+    ]
+}
